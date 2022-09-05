@@ -1,0 +1,96 @@
+<!-- The formula to convert from Celsius to Fahrenheit is the temperature in Celsius times 9/5, plus 32.
+You are given a variable celsius representing a temperature in Celsius. Use the variable fahrenheit already defined and assign it the Fahrenheit temperature equivalent to the given Celsius temperature. Use the formula mentioned above to help convert the Celsius temperature to Fahrenheit.
+ -->
+
+function convertCtoF(celsius) {
+  return celsius * 9/5 + 32;
+}
+convertCtoF(5);
+
+<!-- Reverse the provided string.
+You may need to turn the string into an array before you can reverse it.
+Your result must be a string. -->
+
+function reverseString(str) {
+  return str.split("").reverse().join("");
+}
+
+reverseString("hello");
+
+<!-- Return the factorial of the provided integer.
+If the integer is represented with the letter n, a factorial is the product of all positive integers less than or equal to n.
+Factorials are often represented with the shorthand notation n!
+For example: 5! = 1 * 2 * 3 * 4 * 5 = 120
+Only integers greater than or equal to zero will be supplied to the function. -->
+
+function factorialize(num) {
+  if (num <= 1) {
+    return 1;
+  }
+  return num * factorialize(num - 1);
+}
+
+factorialize(5);
+
+<!-- Return the length of the longest word in the provided sentence.
+Your response should be a number. -->
+
+function findLongestWordLength(str) {
+  var arr = str.split(" ");
+  var longestWord = 0;
+  for (var i = 0; i < arr.length; i += 1){
+    if(arr[i].length > longestWord){
+      longestWord = arr[i].length
+    }
+  }
+  return longestWord;
+}
+
+findLongestWordLength("The quick brown fox jumped over the lazy dog");
+
+<!--   V2   -->
+function findLongestWordLength(str) {
+  var longestWord = str.split(" ").reduce(function(longest, current){
+    return current.length > longest.length ? current : longest;
+  }, "");
+  return longestWord.length;
+}
+
+findLongestWordLength("The quick brown fox jumped over the lazy dog");
+    
+<!-- Return an array consisting of the largest number from each provided sub-array. For simplicity, the provided array will contain exactly 4 sub-arrays.
+Remember, you can iterate through an array with a simple for loop, and access each member with array syntax arr[i]. -->
+    
+function largestOfFour(arr) {
+  var result = [];
+  for (var i = 0; i < arr.length; i += 1){
+    var largestNumber = 0;
+    for(var j =0; j < arr[i].length; j += 1){
+      if (arr[i][j] > largestNumber) {
+        largestNumber = arr[i][j]
+      }
+    }
+    result[i] = largestNumber;
+  }
+  return result;
+}
+
+largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]);
+
+<!--   V2   -->
+function largestOfFour(arr) {
+  var result = arr.map(function(subArray){
+    return subArray.reduce(function(prev, current){
+      return Math.max(prev, current);
+    })
+  })
+  return result;
+}
+
+largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]);
+
+<!--Check if a string (first argument, str) ends with the given target string (second argument, target).
+This challenge can be solved with the .endsWith() method, which was introduced in ES2015. But for the purpose of this challenge, we would like you to use one of the JavaScript substring methods instead. -->
+    
+
+    
