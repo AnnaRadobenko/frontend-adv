@@ -5,12 +5,14 @@ const pressure = getElement('current-pressure');
 const temperature = getElement('current-temperature');
 const windSpeed = getElement('current-wind-speed');
 const summury = getElement('weather-summury');
+const city = getElement('city');
 const getWeatherButton = getElement('getWeather');
 const cityWeather = getElement('city-weather');
 const submit = getElement('ok');
 const err = getElement('error');
 const all = getElement('weather');
 const spinner = getElement('spinner');
+const voice = getElement('voice');
 
 const getCurrentLocation = () => {
     spinner.style.display = "block";
@@ -55,6 +57,7 @@ const displayGeoData = (data) => {
     temperature.innerText = `Temperature: ${fromKelvintoCelsius(data.main.temp)} °C`;
     windSpeed.innerText = `Wind speed: ${data.wind.speed} m/s`;
     summury.innerText = `Summury: ${data.weather[0].main}`;
+    city.innerText = `City: ${data.name}`;
     all.style.backgroundImage = `url(${data.weather[0].main}.png)`
 };
 
@@ -66,3 +69,24 @@ submit.addEventListener('click', getInputValue);
 cityWeather.addEventListener('keyup', function(){
     err.style.display = "none"
 })
+
+// SpeechRecognition
+function listener() {
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+    
+    recognition.onresult = function(event) {
+        err.style.display = "none";
+        spinner.style.display = "block";
+        const result = event.results[0][0].transcript;
+        cityWeather.value = result;
+        getCityWeather(result);
+    }
+
+    recognition.start();
+}
+
+voice.addEventListener('click', listener)
